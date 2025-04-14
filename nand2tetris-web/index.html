@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nand2Tetris Web Tools</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+
+    <!-- HEADER -->
+    <header>
+      <h1>Nand2Tetris Web Tools</h1>
+      <p>Use the VM Translator and Assembler directly in your browser.</p>
+    </header>
+
+    <!-- ================= VM TRANSLATOR SECTION ================= -->
+    <section class="tool-section" id="vm-translator">
+      <h2>VM Translator</h2>
+
+      <div class="input-group">
+        <label for="vmInput">Paste VM Code:</label>
+        <textarea id="vmInput" placeholder="// Paste .vm code here..."></textarea>
+      </div>
+
+      <div class="button-group">
+        <input type="file" id="vmFileInput" />
+        <button id="translateBtn">Translate VM</button>
+        <button id="sendToAssemblerBtn" disabled>Send to Assembler</button>
+      </div>
+
+      <div class="output-group">
+        <label for="vmOutput">Translated ASM Output:</label>
+        <textarea id="vmOutput" readonly></textarea>
+      </div>
+    </section>
+
+    <hr/>
+
+    <!-- ================= ASSEMBLER SECTION ================= -->
+    <section class="tool-section" id="assembler">
+      <h2>Hack Assembler</h2>
+
+      <div class="input-group">
+        <label for="inputCode">Paste Assembly Code:</label>
+        <textarea id="inputCode" placeholder="// Paste .asm code here..."></textarea>
+      </div>
+
+      <div class="button-group">
+        <input type="file" id="fileInput" />
+        <button id="assembleBtn">Assemble</button>
+        <button id="downloadBtn" disabled>Download .hack</button>
+        <button id="clearBtn">Clear All</button>
+      </div>
+
+      <div class="output-group">
+        <label for="outputCode">Machine Code Output (.hack):</label>
+        <textarea id="outputCode" readonly></textarea>
+      </div>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+
