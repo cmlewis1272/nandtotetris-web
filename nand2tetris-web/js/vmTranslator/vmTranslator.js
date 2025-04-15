@@ -38,6 +38,12 @@ function translateCommand(cmd, arg1, arg2) {
     case 'pop':
       return popCommand(arg1, arg2);
 
+    case 'label': return labelCommand(arg1);
+    case 'goto': return gotoCommand(arg1);
+    case 'if-goto': return ifGotoCommand(arg1);
+    case 'function': return functionCommand(arg1, arg2);
+
+
     default:
       return [`// Unknown command: ${cmd}`];
   }
@@ -108,6 +114,9 @@ function popCommand(segment, index) {
         '@SP', 'AM=M-1', 'D=M',
         `@Static.${index}`, 'M=D'
       ];
+
+    case 'function': return functionCommand(arg1, arg2);
+
     default:
       return [`// Unsupported pop segment: ${segment}`];
   }
@@ -127,3 +136,31 @@ function compareTemplate(jumpType) {
     `(${labelEnd})`
   ];
 }
+
+function functionCommand(functionName, numLocals) {
+  const count = Number(numLocals);
+  const output = [`(${functionName})`];
+
+  for (let i = 0; i < count; i++) {
+    output.push(...pushCommand('constant', '0'));
+  }
+
+  return output;
+}
+
+
+function labelCommand(label) {
+  return [`(${label})`];
+}
+
+function gotoCommand(label) {
+  return [`@${label}`, '0;JMP'];
+}
+
+function ifGotoCommand(label) {
+  return [
+    '@SP', 'AM=M-1', 'D=M',
+    `@${label}`, 'D;JNE'
+  ];
+}
+
